@@ -8,3 +8,11 @@
 - Atmosphere: original local Web Audio synthesis; no external soundtrack assets.
 
 Art is used for fictional historical drama. Clothing and court locations are artistic approximations, not museum reconstructions.
+
+## Premium V4 addition
+
+`public/art/culture-salon.svg` is a newly authored, original vector illustration of a lantern-lit Joseon courtyard pavilion, designed for the Culture & Society interface. It is bundled locally; no third-party image service is required.
+
+## Premium V5 additions
+
+Version 5 introduces original CSS-only career, estate and royal-decree screens, with existing bundled artwork and symbolic typographic seals. No new external image or audio services were added. Refer to the user's earlier uploads and asset copyright history before granting public reuse rights.

@@ -1,4 +1,7 @@
 import { npcs } from './data'
+import { defaultCulture } from './culture'
+import { defaultCareer, defaultEstate } from './life'
+import { defaultFinances, defaultHouse, defaultIdentity } from './society'
 import { SAVE_VERSION } from './rules'
 
 /** Safe structural migration of player-owned standalone v2.x backups. */
@@ -29,8 +32,10 @@ export function convertStandaloneSave(raw: Record<string, unknown>): Record<stri
     language: raw.lang ?? 'en', generation: raw.generation ?? 1,
     pendingBirthDueDay: raw.pendingBirthDueDay ?? null,
     lastEventDay: raw.lastEventDay ?? -5, lastInteraction: raw.lastInteraction ?? {},
-    factions: { reform: safeNumber(standaloneFactions.reform, 20), tradition: safeNumber(standaloneFactions.tradition, 20), royalist: 20 },
-    lastFactionDay: safeNumber(raw.lastFactionAction, -10)
+    culture: defaultCulture(), standing: String(raw.status ?? '').includes('Royal') ? 'royal' : 'noble', career: defaultCareer(), household: defaultEstate(), downfall: null, factions: { reform: safeNumber(standaloneFactions.reform, 20), tradition: safeNumber(standaloneFactions.tradition, 20), royalist: 20 },
+    lastFactionDay: safeNumber(raw.lastFactionAction, -10),
+    identity: defaultIdentity(String(raw.status ?? '').includes('Royal'), String(player.personality ?? 'Composed')),
+    house: defaultHouse(String(player.family ?? 'Noble house')), finance: defaultFinances()
   }
   return imported
 }

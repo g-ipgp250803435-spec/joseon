@@ -1,19 +1,25 @@
-# Save Data and Upgrade Compatibility
+# Local save compatibility — schema V5
 
-## Current edition
+`src/game/storage.ts` validates the **entire** save structure with Zod and rejects malformed or unsupported campaigns. Writes are refused if validation fails.
 
-Premium Edition stores the complete game state in the browser's LocalStorage under `joseon-legacy-autosave-v1` and up to three manual save slots. Despite the historical key suffix, the validated `schemaVersion` is **3**. The Zod schema checks character attributes, relationships, date, narrative choices, faction values, family size and references to known locations.
+V5 introduces:
 
-## Earlier React versions
+- `standing`: legally distinct `noble`, `royal` or `commoner` category.
+- `career`: current path, rank, experience, examination and action cooldown.
+- `household`: estate level, venture count, obligations, monthly settlement stamp, cooldown.
+- `downfall`: historical cause, date, evidence, appeals, legal original standing and restoration state.
+- Optional custom-house fields on `player` for focus and inherited burden.
 
-Legacy V1 and V2 React saves are migrated to the new data shape when imported. New faction standing starts at 20 for each court circle; the prior character choices and journal are preserved.
+On V1–V4 React-save import, the converter supplies neutral career and household fields and derives noble/royal standing from the old social-status label. It does not treat an ordinary disgrace or financial setback as a royal revocation. Prior standalone backups use a separate structural conversion. Compatible cultural records are retained for V4 imports.
 
-## Earlier standalone V2 / V2.1
+**Important:** migration is tested at the source/test level, but a real browser import and schema validation with installed Zod still require the connected production QA pass. Older saves must be backed up before irreversible edits. Corrupt JSON should be rejected without executing any embedded content.
 
-A backup from the standalone JavaScript edition uses fields such as `rels`, `familyMembers`, `status`, `favour`, `seen`, and `location`. The import handler recognizes this distinct shape and converts it to the current format.
+LocalStorage keys intentionally remain compatible with the previous edition to allow ordinary browser migration: `joseon-legacy-autosave-v1` and three `joseon-legacy-save-v1-N` slots. JSON exports contain `schemaVersion: 5`.
 
-Preserved when structurally valid: character, family, date, core stats, NPC relationship numbers, spouse, child count, journal, seen narrative flags, royal appointment and generation. Some original three-party faction standings (especially `independent`) do not correspond precisely to the new `royalist` faction. The new faction begins at 20. A narrative event that was open during export is reset rather than executing untrusted embedded event data.
+## Version 6 migration
 
-For imports between *different* domains, export JSON from the old game and import it on the **new title-screen Load page**. The new edition also checks for the old autosave key `joseon-crown-legacy-autosave-v1` when deployed at the same website origin.
+V6 adds `identity`, `house`, and `finance` profiles to the serialized game state, and optional `training` on child records and `loyalty`/`rivalry` on NPC relationships. Existing v1–v5 React game saves are upgraded with conservative, documented defaults for the new fields, preserving historical decisions and the main family chronicle. Standalone v2.x imports receive the same new defaults after structural conversion.
 
-**Always keep a backup before upgrading.** Incompatible or corrupted files are refused; save migration is intentionally conservative.
+New state is validated through the updated Zod schema when loading or writing. Export a JSON backup before upgrading a browser deployment, especially if replacing a previous site's origin. The existing autosave and three manual slot storage keys have been kept to support continuity.
+
+Because the test environment lacked the zod npm package, end-to-end migration of a genuine browser-generated V5 JSON file should be included in the post-deployment smoke test. See `docs/QA_REPORT.md`.

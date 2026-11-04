@@ -1,99 +1,69 @@
-# JOSEON: THE CROWN & THE LEGACY
+# JOSEON: THE CROWN & THE LEGACY — Premium V6.0
 
-### Premium Edition · Version 3.0 · React / TypeScript / Vite
+**A local-first, illustrated Joseon Dynasty life simulation.** Your birth determines your beginning. Your decisions determine your legacy.
 
-*A historical life simulation of love, loyalty, court politics and the families who outlast kings.*
+This repository is a **proper multi-file React + TypeScript + Vite project**, not an embedded HTML artifact or a server-based game. It is designed to deploy as a static website to Vercel or any compatible static host. No login, database, external AI service, or secret API keys are required to play.
 
-JOSEON is now a **multi-file, Vercel-ready React application**. It is **not** the previous single-HTML export. Game logic, narrative content, illustrations, UI, persistence and deployment settings are maintained as separate project files. No backend, login, hosted AI, paid API, or database is required.
+## Play locally
 
-## Play & develop
-
-Requirements: **Node.js 20+** and npm, with network access to install open-source dependencies.
+Requirements: Node.js **22** is recommended (Node >=20), npm, and a modern browser.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open the local address printed by Vite (usually `http://localhost:5173`). For a production build:
+Open the local URL displayed by Vite, typically `http://localhost:5173`.
 
 ```bash
-npm run test
-npm run build
-npm run preview
+npm run test     # Pure simulation, content, and repository tests
+npm run build    # Full TypeScript check and production build
+npm run preview  # Preview compiled dist/ site
 ```
 
-Vite outputs the deployable production website to **`dist/`**. Vercel builds it automatically on deploy. Do not upload this project as a single HTML file, and do not set `index.html` as the Vercel output directory.
+The repository intentionally does **not** include `node_modules` or generated `dist/`. Vercel installs packages and compiles `dist/` during deployment. If a build fails, resolve the error before treating the deployment as verified.
 
-## Deploy to Vercel from GitHub
+## Deploy to Vercel
 
-1. Create a new repository and upload **all extracted folders and files** (including `src/`, `public/`, `package.json`, `vite.config.ts`, and `vercel.json`) to its root.
-2. In [Vercel](https://vercel.com/new), import that GitHub repository. Vercel should identify **Vite** as the framework.
-3. Use **Build Command:** `npm run build`; **Install Command:** `npm install`; **Output Directory:** `dist`; **Root Directory:** `./`.
-4. No environment variables are required. Deploy. Vercel will create a public URL.
-5. If the production build fails, check the deployment log; do not treat the release as live until it finishes successfully.
+1. Extract this ZIP and upload **its contents** to the root of a GitHub repository (not the ZIP itself).
+2. In Vercel choose **Add New Project**, import that repository and choose framework **Vite**.
+3. Use `npm install`, `npm run build`, and output directory `dist` (already set in `vercel.json`).
+4. Deploy and test **New Game**, narrative choices, the House Council, Estates & Investments, saving/loading, and Korean interface controls on the real website.
 
-See [docs/DEPLOY_VERCEL.md](docs/DEPLOY_VERCEL.md) for a more complete walkthrough.
+See [the deployment guide](docs/DEPLOY_VERCEL.md).
 
-## What the game includes
+## Core game
 
-- Historical scenarios for **1392, 1440, 1494, 1592, 1724, 1776, 1863**, and **custom historical starting years** from 1392 to 1909, plus an alternative-Joseon campaign.
-- Character creation with two genders, six appearance palettes each, noble-family backgrounds, personalities and starting abilities.
-- A staged narrative prologue, an illustrated capital navigation map, six destinations, court activities, conversations and romance.
-- Ten authored NPCs with illustrated portraits, affection, trust, respect and romance.
-- Political rivalry through three factions, council negotiations, competing loyalties, and a seven-day political-action cooldown.
-- A library of authored story events, including the 1724 lotus-letter branching arc and new trials, household choices, winter relief and diplomatic episodes.
-- Marriage, family members, childbirth after approximately nine game months, ageing and adult-heir succession.
-- Twelve legacy milestones, four story chapters, journal, multiple endings and generational continuation.
-- English/Korean UI, story and choice text (some secondary descriptions and the recorded chronicle remain English).
-- Five main resources: reputation, influence, wealth, health and royal favour.
-- Local autosaves, three manual save slots, export/import backups, schema validation and supported migration from earlier saves.
-- Optional locally synthesized atmospheric audio; **off by default**.
+- **Two campaigns:** historical Joseon (1392–1897 starts), alternative Joseon, curated historical openings, 2D illustrated scenes, fictional supporting characters.
+- **Character & family:** custom noble or royal identity, five starting attributes, age progression, marriage, parenthood, mentoring children, playable adult descendants.
+- **Politics:** three competing factions, royal favor, decisions and story consequences, qualified civil/military careers, official service, political downfall and uncertain restoration.
+- **Culture:** etiquette, scholarship, seasonal invitations, poetry, family rites, cultural patronage and an inherited family chronicle.
+- **Part I–III expansion in V6:** personal identity and social legitimacy metrics, four specialized educational disciplines, house council/leadership, alliances and disputes, private savings distinct from the family treasury, family assets and liabilities, named land holdings, commercial ventures with seasonal returns, monthly financial history, and branching inheritance/trade/official-authority events.
+- **Persistence:** local autosave, three manual slots, export/import JSON, schema v6 with conversion for supported V1–V5 and standalone saves.
 
-## Project structure
+## Project layout
 
 ```text
-.github/workflows/quality.yml   CI checks
-public/art/                    Illustrated scenes, Hanseong map, portraits
-public/favicon.svg             Site icon
-src/App.tsx                    Game screens and interactions
-src/style.css                  Base interface layout
-src/premium.css                Premium art direction and responsive styling
-src/game/data.ts               Campaigns, NPCs, locations, narrative stories
-src/game/rules.ts              Calendar, consequences, marriage, succession
-src/game/store.ts              Zustand state and game actions
-src/game/storage.ts            Zod save validation and LocalStorage
-src/game/migration.ts          Legacy standalone save conversion
-src/game/premium.ts            Factions, milestones, story chapters
-src/game/history.ts            Simplified historical reign mapping
-src/game/ambience.ts           Original synthesized soundscape
-src/main.tsx                   React entry point
-index.html                     Vite HTML shell
-vite.config.ts                 Bundling configuration
-vercel.json                    Vercel deployment instructions
-tests/                         Game logic regression suite
+src/App.tsx               UI, navigation, game screens and story presentation
+src/game/store.ts         Zustand action dispatcher and campaign lifecycle
+src/game/types.ts         Typed game state
+src/game/rules.ts         Calendar, relationships, event effects and eligibility
+src/game/society.ts       Part I–III character, family, property and finance rules
+src/game/societyEvents.ts Narrative episodes for the expanded systems
+src/game/life.ts          Careers, legal downfall/restoration and original estate progression
+src/game/culture.ts       Calendar-driven cultural social gameplay
+src/game/data.ts          Historical scenarios, locations, NPCs, core stories
+src/game/storage.ts       Zod save validation and migration
+public/art/               Bundled original SVG illustrations and portraits
+tests/                    Node test suite for pure simulation and repository structure
+vercel.json               Static deployment configuration
+.github/workflows/        GitHub Actions test/build checks
 ```
 
-## Importing earlier saves
+## Scope and honesty
 
-The title screen's **Load a saved campaign** page accepts JSON backups. On the *same website origin*, the new engine also checks for an autosave from the older standalone version. Standalone-version saves use a different schema; basic character, family, relationships, stats, decisions and journal entries are converted when compatible. Some faction details and an event in progress may not migrate exactly. **Always export a backup before replacing a deployed version.** See [docs/SAVE_COMPATIBILITY.md](docs/SAVE_COMPATIBILITY.md).
+This is a **playable narrative simulation with expanded systems, not a finished 3D or all-provinces economy game**. The source PDFs include future-level design requirements such as 3D camera perspectives, a comprehensive historical office hierarchy, royal governance, full trade networks, and individually simulated servants. Those have *not* been implemented. The game remains 2D and local-first under the previously approved compact technical architecture.
 
-## Design principles
+The simplified 12×30-day calendar is **not** an exact Korean lunisolar calendar. Named characters, three court factions, and branching scenes are largely fictional. Period-specific court eligibility and social conventions require further expert historical validation before marketing the game as an authoritative historical reconstruction.
 
-The playable release remains 2D, single-player and local-first. Political, military and household systems are purposely narrative abstractions, not complex management simulators. Custom characters and political letters are fictional; historical settings are based on a deliberately simplified 12-month × 30-day calendar and are not a scholarly calendar conversion.
-
-## Current verification status
-
-- **20 automated tests passed** in the preparation environment (16 simulation and narrative checks, 4 repository/deployment/asset checks).
-- TypeScript/TSX sources passed syntax transpilation checks, plus a structural typecheck using temporary dependency stubs; SVGs and stylesheets are independently checked.
-- **The Vite production build and rendered React application have not been verified in this environment**, because the npm registry is unreachable. You must run `npm install && npm run build` on a connected machine or verify the Vercel build log. The GitHub CI workflow also runs tests and a build after dependencies are installed.
-
-The release provides deployable source **configured for** Vercel; it is not a claim of a verified live deployment.
-
-## Asset notes
-
-The moonlit palace and lotus garden vector art were adapted from the game-design file provided by the project owner. Remaining SVG portraits and the stylized city map were generated for this project. No font binaries are bundled. See [docs/ASSET_CREDITS.md](docs/ASSET_CREDITS.md) and [docs/QA_REPORT.md](docs/QA_REPORT.md).
-
----
-
-*JOSEON — Your house. Your story. Your legacy.*
+This package passed its available pure simulation and static checks in the preparation environment. **A full dependency-backed `vite build` and graphical browser smoke test were not possible in that environment because npm registry access was unavailable.** GitHub Actions and Vercel will carry out the first real production build. See [QA report](docs/QA_REPORT.md).

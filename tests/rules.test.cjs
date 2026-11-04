@@ -5,11 +5,11 @@ const { advanceCalendarDays, applyEffect, canContinueAsDescendant, canPlanChild,
 
 function campaign() {
   return {
-    schemaVersion: 3, mode: 'historical', scenarioId: '1776', campaignLabel: 'A New Reign', monarch: 'King Jeongjo',
+    schemaVersion: 5, mode: 'historical', scenarioId: '1776', campaignLabel: 'A New Reign', monarch: 'King Jeongjo',
     player: { name: 'Yi Seoyeon', gender: 'Female', age: 20, family: 'House Seo', background: 'Established aristocratic family', personality: 'Composed', portrait: '花', attributes: { intelligence: 50, charisma: 50, influence: 50, diplomacy: 50, courage: 50 } },
     date: { year: 1776, month: 12, day: 30 }, dayCount: 0,
     stats: { reputation: 42, influence: 22, wealth: 48, health: 92, royalFavor: 28 },
-    socialStatus: 'Noble household', appointment: 'No official appointment',
+    socialStatus: 'Noble household', appointment: 'No official appointment', standing:'noble', career:{path:'scholarship',rank:0,experience:0,examined:false,lastActionDay:-30}, household:{level:0,ventures:0,obligations:1,lastSettlement:'',lastActionDay:-30}, downfall:null,
     relationships: [ { npcId: 'hwan', affection: 65, trust: 50, respect: 20, romance: 65, status: 'Romantic interest' } ],
     family: [], currentLocation: 'residence', seenEvents: [], activeEvent: null, journal: [],
     spouse: null, children: 0, ending: null, language: 'en', generation: 1,
@@ -131,8 +131,8 @@ test('reign context changes in historical campaigns but not in alternative ones'
 
 test('historical campaigns end at the Joseon era boundary', () => {
   const game = campaign()
-  game.date = { year: 1909, month: 12, day: 30 }
+  game.date = { year: 1897, month: 12, day: 30 }
   const next = advanceCalendarDays(game, 1)
-  assert.equal(next.ending.title, 'The Last Year of Joseon')
+  assert.equal(next.ending.title, 'The End of Joseon')
   assert.equal(next.ending.canContinue, false)
 })

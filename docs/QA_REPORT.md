@@ -1,40 +1,29 @@
-# JOSEON Premium V3.0 — Quality Assurance Report
+# Premium V6.0 QA & verification report
 
-**Scope:** Complete source repository intended for a multi-file React 18 + TypeScript + Vite 6 application deployed through Vercel. This is **not** a standalone HTML game or a precompiled production build.
+## Verification completed in preparation environment
 
-## Verified in the delivery environment
+- 72 automated Node tests of simulation systems, event branching, progression rules and repository structure: **72 passed, 0 failed**.
+- TypeScript pure game modules compiled with global `tsc` (CommonJS output used by Node tests).
+- App/store/storage TypeScript/TSX syntax/transpilation check with global TypeScript: **passed**.
+- Additional application-level integration type check using **temporary declaration stubs** for unavailable React/Zod/Zustand packages: passed. This is **not equivalent** to a dependency-backed `tsc -b`.
+- All original Premium V5 tests remained passing after V6 additions.
 
-| Check | Result | Method |
-|---|---|---|
-| Simulation, narrative and inheritance | **16 / 16 passed** | Node built-in test runner after TypeScript compilation of browser-independent game rules |
-| Repository, assets, imports and Vercel configuration | **4 / 4 passed** | Additional Node built-in integration checks |
-| React and TypeScript syntax | **Passed** | TypeScript transpile check |
-| TypeScript structural integration | **Passed with dependency stubs** | Full-source `tsc --noEmit` against temporary React/Zod/Zustand/Lucide declarations (not a replacement for a normal strict production typecheck) |
-| SVG files | **34 / 34 well-formed** | Python ElementTree parser |
-| CSS stylesheets | **2 / 2 parsed** | PostCSS parser |
-| Source import/asset references | **Passed** | Automated repository tests |
-| ZIP integrity | **Verified after archive creation** | Python ZipFile CRC/inventory validation |
+## Not verified here
 
-There are **42 authored story event definitions, 7 curated historical starts, 1 alternative campaign, 10 NPCs, 6 locations, 3 factions and 12 milestone definitions** in the delivered source. Custom starting years (1392–1909) use a generic historical prologue. Event count does not imply that every event is eligible in every playthrough.
+- A dependency-backed production build (`npm run build` / Vite): **not run successfully**, because npm packages could not be downloaded (DNS `EAI_AGAIN`).
+- Browser-level React rendering, image fidelity, responsive interactions, focus handling and persistence across actual browser restarts: **not verified**.
+- A production Vercel site: **not yet deployed**.
+- Comprehensive historical accuracy or fully translated Korean language content: **not certified**.
 
-## Important verification gap
+## Acceptance smoke test after installing dependencies
 
-The npm registry could not be reached in this environment, so the dependencies were not installed here. Consequently, **the actual `npm run build` (normal strict typecheck + Vite production bundle), visual browser rendering, real-device compatibility, save persistence across browser restarts, and live Vercel deployment have NOT been verified**. The source is configured for that workflow, and GitHub Actions runs `npm run test` and `npm run build` with normal dependencies after upload.
-
-## Required first-deployment checks
-
-1. On a connected machine or in the GitHub CI, run `npm install`, `npm run test`, and `npm run build` and resolve any errors before publishing.
-2. Serve `dist/` with `npm run preview`; start the 1724 campaign and choose every branch of its first story event (separate campaigns).
-3. Verify character creation, six destinations, all relationship actions, faction cooldowns, legacy page, chapter changes, childbirth and successor progression.
-4. Save manually, reload, refresh the page, close and reopen the browser, then import an exported JSON backup. Test invalid JSON and malformed or oversized saves.
-5. Verify English/Korean text, mobile layout at 375px, modal scrolling, keyboard focus and reduced-motion settings.
-6. Check browser console and Vercel deployment logs. Only announce a verified production release after these checks succeed.
-
-## Known product limitations
-
-- The game deliberately uses a simplified 360-day story calendar, not exact lunar-calendar chronology.
-- Some supporting character bios, locations and journal strings remain English even when Korean UI is selected.
-- NPC behavior is authored and conditional, not a deep autonomous simulation; the three factions are a lightweight narrative mechanic.
-- Historical player plots are fictional and occasionally dramatized for gameplay.
-- Saves are browser-local, with three manual slots and JSON export/import, not cloud-synchronized.
-- No lockfile is bundled because dependency installation was unavailable; run `npm install` on a connected system and commit the generated `package-lock.json` for pinned transitive dependencies.
+1. `npm install && npm run test && npm run build` finishes with no errors.
+2. New historical campaign shows a valid prologue; decisions and journal update; alternative campaign starts separately.
+3. Character profile and **House Council & Identity** show different birth/legal/authority/honor values; council actions affect them according to rules.
+4. Courses of study change only their intended discipline; office duties require a formal qualified appointment.
+5. Estate page shows **personal cash**, **private savings**, **family treasury** and **family debt** distinctly. Transfer, acquire, repair, invest and close actions update holdings and ledger; monthly settlement runs once.
+6. Family page allows mentoring children aged 5–17, disallows younger/older children, and passes training to an adult successor.
+7. Inheritance dispute, merchant reckoning and office seal story arcs become available when eligible.
+8. Save manually, reload, export JSON, import into a fresh tab, confirm all new V6 state persists. Import a genuine Premium V5 save and confirm it acquires V6 defaults without losing story history.
+9. Try malformed JSON and modified numeric fields; loader must reject invalid data.
+10. Test keyboard/mobile navigation and check that images load through Vercel's public asset path.

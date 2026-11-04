@@ -1,43 +1,29 @@
-# Deploying JOSEON Premium Edition on Vercel
+# Deploy JOSEON Premium V6 to Vercel
 
-## Step 1 — Extract and commit the complete project
+1. Download and extract `JOSEON_PREMIUM_V6_VERCEL_GITHUB_COMPLETE.zip`.
+2. Create a new GitHub repository. Upload all extracted files and folders into the repository root. Do not upload only the `.zip` and do not include `.test-build`, `node_modules`, or previous releases.
+3. In Vercel, select **New Project**, import your GitHub repo, and choose the **Vite** framework.
+4. Confirm project root is `./` (repo root), install command `npm install`, build command `npm run build`, and output directory `dist`. These are declared in `vercel.json`.
+5. No environment variables, database or paid APIs are required.
+6. Deploy; confirm that Vercel reports a successful TypeScript + Vite build. Run the included checks locally or inspect GitHub Actions on the `main` branch.
+7. After deployment, create a campaign, resolve its opening event, explore the House Council and Estate Ledger, advance a month, save a slot, reload, export/import JSON and switch English/Korean. Repeat at mobile width. LocalStorage is **browser- and origin-specific**: changing the site URL may prevent older saves from appearing, so use JSON export to move campaigns.
 
-Download and extract the release ZIP. Create a GitHub repository, for example `joseon-the-crown-and-the-legacy`, and upload the extracted **file contents** into the repository root. The root must include `package.json`, `index.html`, `vercel.json`, `vite.config.ts`, `src/`, and `public/`. Do not upload only the ZIP, and do not put the project inside an extra nested folder unless you configure that as Vercel's Root Directory.
+## Commands
 
-## Step 2 — Import in Vercel
+```bash
+npm install
+npm run test
+npm run build
+npm run preview
+```
 
-Visit [Vercel New Project](https://vercel.com/new), select your GitHub repository, and use these settings:
-
-| Setting | Value |
-|---|---|
-| Framework Preset | Vite |
-| Root Directory | `./` |
-| Install Command | `npm install` |
-| Build Command | `npm run build` |
-| Output Directory | `dist` |
-| Node.js | 20.x or 22.x |
-| Environment variables | None required |
-
-Click Deploy. Vercel downloads the dependencies, runs TypeScript checking and Vite, then serves `dist/` as a static site. No backend is required.
-
-## Step 3 — Validate the public link
-
-After Vercel reports **Ready**, open the live URL in a desktop browser and a mobile browser. Confirm: Main Menu → Historical Campaign → 1724 → Character Creation → Prologue Choice → Activities → Court Factions → Save → Refresh → Resume; then test manual save loading, story choices, language toggle, relationship conversation and map travel. Export a JSON backup before replacing an older deployment. Verify browser console has no errors.
-
-## Step 4 — Future updates
-
-Commit future code changes to the main branch. Vercel rebuilds automatically. `.github/workflows/quality.yml` also runs domain tests and a Vite build in GitHub Actions. Once you can run `npm install` locally, commit the generated `package-lock.json` for reproducible installs and optionally switch the workflow to `npm ci`.
-
-## Saving and domains
-
-LocalStorage is tied to the **exact hostname**. Progress saved on one `*.vercel.app` preview URL will not automatically appear on a different hostname or custom domain. Export your campaign JSON file, then import it on the new domain. Browser data deletion and private/incognito browsing can remove saves. There is no cloud account or sync feature.
+Vercel's `dist` output is built during deployment. The source ZIP does not contain a precompiled build, and the preparation environment could not install dependencies from npm to perform a full Vite production build. Treat the deploy as verified only after Vercel's build succeeds.
 
 ## Troubleshooting
 
-- **`Failed to resolve import`**: verify all project files were uploaded and allow the dependency install to finish.
-- **`Cannot find module vite/react`**: the install step did not complete; check npm registry access.
-- **Blank screen**: inspect DevTools Console and Vercel deployment logs; make sure the output directory is `dist`, not the repository root.
-- **Can't find previous save**: compare hostnames; export/import campaign JSON.
-- **No ambience**: it is off by default and must be started by clicking the speaker control. Some browser contexts restrict Web Audio.
-
-The project contains a single client-side screen app with no application routes, so no wildcard rewrite is needed for the current release.
+- **Missing modules / dependency errors:** ensure `package.json` is in the repo root; run `npm install` with Node 22.
+- **Blank page:** check browser console and that deployment framework is Vite and output directory `dist`.
+- **Old save missing:** check the website origin. Use exported JSON rather than assuming LocalStorage syncs across domains/devices.
+- **Damaged save:** game validation rejects invalid save data; use an earlier manual slot or valid JSON backup.
+- **Broken visuals:** check `public/art`, its portrait SVGs and that Vercel copied `public` into the build.
+- **Historical accuracy:** story material is dramatized and fictional elements are labeled as such.

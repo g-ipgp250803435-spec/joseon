@@ -165,3 +165,55 @@ button{transition:transform .22s ease,background-color .24s ease,border-color .2
 .top-audio{display:grid;place-items:center;flex-shrink:0;height:36px;width:36px;background:#252c33;border:1px solid #6e5d4f;color:#d5ba8f;margin-left:10px}.top-audio:hover{background:#414047;border-color:#cba76f}
 @media(max-width:600px){.top-audio{margin-left:0;height:32px;width:32px}}
 .title-import{margin-top:21px;padding:21px;background:#f0e5d6;border:1px solid #d8c7b1}.title-import .eyebrow{display:block;margin-bottom:8px}.title-import p{font-size:12px;color:#75665b;margin:5px 0 13px}.title-import input{font-size:12px;max-width:100%}
+
+/* V5 — career, household and social-justice expansions */
+.expanded-page{display:grid;gap:22px;align-content:start}
+.progression-hero{background:linear-gradient(115deg,rgba(45,29,35,.97),rgba(96,48,51,.91)),url('/art/moon-palace.svg') center/cover;color:#f5ede2;border-color:#795e60}
+.progression-hero h2,.progression-hero p{color:#f5ede2}
+.progression-hero p{opacity:.88;max-width:760px;line-height:1.7}
+.progression-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:20px}
+.progression-facts>div{padding:14px;background:rgba(255,255,255,.10);border:1px solid rgba(245,233,213,.2);display:flex;flex-direction:column;gap:6px;min-width:0}
+.progression-facts small{font-size:10px;letter-spacing:1px;opacity:.75}
+.progression-facts strong{font-size:16px;color:#fbe2af;overflow-wrap:anywhere}
+.career-grid,.estate-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.career-choice,.estate-choice{display:flex;gap:13px;align-items:center;background:#fffdf8;border:1px solid #ddd2bb;padding:17px;min-width:0}
+.career-choice.selected{border-color:#a26c54;background:#fbf4e8;box-shadow:inset 0 0 0 1px #a26c54}
+.career-choice>div,.estate-choice>div{flex:1;min-width:0}
+.career-choice h3,.estate-choice h3{color:#543839;font-size:16px;margin:0 0 7px}
+.career-choice p,.estate-choice p{font-size:12px;color:#685f55;line-height:1.5;margin:0}
+.career-emblem{font-size:33px;color:#8a5753;align-self:flex-start}
+.career-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:17px}
+.status-alert{background:#f6e4d8;color:#673233;border:1px solid #c88981;padding:19px;margin-bottom:18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.status-alert p{flex:1;min-width:200px;margin:0;line-height:1.6}
+.downfall-card{border:2px solid #a45f54;background:linear-gradient(145deg,#f9f2e7,#edd5c6)}
+.downfall-card .ending-seal{color:#9b393b}
+@media(max-width:900px){.career-grid,.estate-grid{grid-template-columns:1fr}.progression-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.career-choice,.estate-choice{flex-wrap:wrap}.progression-facts{gap:7px}.progression-facts>div{padding:10px}.career-actions>.btn{width:100%}}
+/* Premium V6: aristocratic identity, education, council, family finance */
+.v6-stat-grid,.v6-action-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:22px }
+.v6-stat-grid .v6-metric {padding:16px 18px;background:rgba(109,80,53,.045);border:1px solid rgba(120,86,50,.15);border-radius:8px}
+.v6-metric>div:first-child{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px}
+.v6-metric span,.v6-money-grid span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7d685c;font-weight:700}
+.v6-metric b{font-family:Georgia,serif;font-size:22px;color:#683f36}
+.v6-action-card {display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:120px;padding:20px;border:1px solid rgba(120,86,50,.17);border-radius:9px;background:linear-gradient(125deg,rgba(253,249,239,.95),rgba(239,229,209,.37))}
+.v6-action-card b{color:#442f2b;font-family:Georgia,serif;font-size:17px}
+.v6-action-card p{color:#78685d;font-size:12px;line-height:1.55;margin:8px 0 0}
+.v6-action-card .btn{flex:none;min-width:116px}
+.v6-level{display:inline-block;font:600 13px Georgia,serif;color:#9b6e40;margin-top:7px}
+.v6-helper{font-size:12px;color:#7b695d;margin-top:18px}
+.v6-house-relations{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.v6-house-relations>div{padding:17px;background:rgba(81,52,39,.05);border-radius:8px}
+.v6-house-relations b{font-family:Georgia,serif;color:#6e4839}
+.v6-house-relations p{font-size:12px;line-height:1.6;color:#796457;margin:9px 0 0}
+.v6-money-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0 0}
+.v6-money-grid>div{padding:21px 14px;background:linear-gradient(155deg,#fbf6ed,#f0e8da);border:1px solid rgba(116,88,55,.16);border-radius:10px;min-width:0}
+.v6-money-grid strong{display:block;font:600 clamp(23px,2.5vw,33px) Georgia,serif;color:#6e3d37;margin:8px 0 6px}
+.v6-money-grid small{font-size:11px;line-height:1.5;color:#78695e}
+.v6-asset-list,.v6-ledger{display:grid;gap:9px;margin-top:20px}
+.v6-asset-list>div,.v6-ledger>div{display:flex;align-items:center;justify-content:space-between;gap:15px;background:rgba(92,69,49,.055);border:1px solid rgba(116,88,55,.12);border-radius:8px;padding:13px 18px}
+.v6-asset-list b{display:block;color:#593c32}.v6-asset-list small{display:block;color:#8b7867;font-size:11px;margin-top:5px}.v6-asset-list strong{color:#733e37}
+.v6-ledger>div{display:grid;grid-template-columns:75px 1fr 55px}.v6-ledger small{color:#827060}.v6-ledger span{font-size:12px;color:#5b4a40}.v6-ledger b{text-align:right;font-variant-numeric:tabular-nums}.v6-ledger .positive{color:#416c50}.v6-ledger .negative{color:#9f554c}
+@media(max-width:800px){.v6-money-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.v6-stat-grid,.v6-action-grid{grid-template-columns:1fr}.v6-house-relations{grid-template-columns:1fr}.v6-action-card{flex-wrap:wrap}.v6-action-card .btn{width:100%}}
+@media(max-width:450px){.v6-money-grid{grid-template-columns:1fr 1fr;gap:6px}.v6-money-grid>div{padding:12px}.v6-money-grid span{font-size:9px}.v6-money-grid strong{font-size:23px}.v6-ledger>div{grid-template-columns:55px 1fr 35px;padding:10px}}
+.v6-mentor-buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;flex-shrink:0}.v6-mentor-buttons .btn{min-width:90px;font-size:10px;padding:9px}
+@media(max-width:640px){.v6-mentor-buttons{width:100%}}

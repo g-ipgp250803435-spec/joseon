@@ -1,8 +1,11 @@
 /** Pure simulation rules: intentionally independent of React and browser APIs. */
 import { historicalMonarch } from './history'
+import { revokeNobleStatus, settleHousehold } from './life'
+import { clampCulture, defaultCulture, inviteForSeason, matureCulturalProjects } from './culture'
+import { settleFamilyFinances, updateCivicStanding } from './society'
 import type { EventEffect, GameState, Relationship } from './types'
 
-export const SAVE_VERSION = 3
+export const SAVE_VERSION = 6
 export const clamp = (value: number, min = 0, max = 100) => Math.max(min, Math.min(max, value))
 
 export function appendLog(game: GameState, message: string): string[] {
@@ -22,7 +25,7 @@ export function relationStatus(relation: Relationship, spouse: string | null, np
 }
 
 export function canPropose(game: GameState, npc: { id: string; name: string; gender: 'Female' | 'Male'; romanceable?: boolean }): boolean {
-  if (game.spouse || !npc.romanceable || game.player.age < 18 || game.ending) return false
+  if ((game.standing === 'commoner' && npc.id === 'hwan') || game.spouse || !npc.romanceable || game.player.age < 18 || game.ending) return false
   // Alternative Joseon deliberately allows more freedom than historical campaigns.
   if (game.mode === 'historical' && game.player.gender === npc.gender) return false
   const r = game.relationships.find((item) => item.npcId === npc.id)
@@ -34,6 +37,12 @@ export function canPlanChild(game: GameState): boolean {
 }
 
 export function eligibleForEvent(game: GameState, eventId: string): boolean {
+  if (game.standing === 'commoner' && !['a-life-in-exile','restoration','letters-home','physicians-warning','family-match'].includes(eventId)) return false
+  if (eventId === 'disputed-inheritance') return game.dayCount >= 75 && game.house.cohesion <= 55
+  if (eventId === 'merchant-reckoning') return game.dayCount >= 40 && game.finance.enterprises.length > 0
+  if (eventId === 'royal-seal-of-office') return game.dayCount >= 65 && ['civil','military'].includes(game.career.path) && game.career.rank >= 1 && game.standing !== 'commoner'
+  if (eventId === 'trial-of-the-house') return game.standing !== 'commoner' && game.dayCount >= 25 && (game.stats.reputation <= 32 || game.seenEvents.includes('ledger-concealed') || game.seenEvents.includes('lotus-hidden'))
+  if (eventId === 'a-life-in-exile') return game.standing === 'commoner' && game.dayCount >= (game.downfall?.atDay ?? 0) + 2
   if (eventId === 'lotus-letter') return game.scenarioId === '1724' && game.dayCount >= 2
   if (eventId === 'lotus-ash') return game.scenarioId === '1724' && game.seenEvents.includes('lotus-burned') && game.dayCount >= 9
   if (eventId === 'lotus-judgement') return game.scenarioId === '1724' && game.seenEvents.includes('lotus-tribunal') && game.dayCount >= 9
@@ -86,10 +95,28 @@ export function applyEffect(game: GameState, effect: EventEffect): GameState {
       romance: clamp(r.romance + (effectRelation.romance ?? 0))
     } : r)
   }
+  if (effect.culture || effect.culturalSecondary || effect.culturalRecord || effect.tradition) {
+    const previous = next.culture ?? defaultCulture()
+    let updated = { ...previous, records: [...previous.records], traditions: [...previous.traditions] }
+    for (const change of [effect.culture, effect.culturalSecondary]) if (change) updated = { ...updated, [change.key]: clampCulture(updated[change.key] + change.amount) }
+    if (effect.tradition && !updated.traditions.includes(effect.tradition)) updated.traditions.push(effect.tradition)
+    if (effect.culturalRecord) updated.records = [...updated.records, { ...effect.culturalRecord, id: `record-${next.generation}-${next.dayCount}-${updated.records.length}`, year: next.date.year, generation: next.generation }].slice(-40)
+    next.culture = updated
+  }
+  if (effect.honour || effect.legitimacy || effect.housePrestige || effect.familyTreasury || effect.familyDebt) {
+    next.identity = { ...next.identity,
+      honour: clamp(next.identity.honour + (effect.honour ?? 0)),
+      legitimacy: clamp(next.identity.legitimacy + (effect.legitimacy ?? 0)) }
+    next.house = { ...next.house, prestige: clamp(next.house.prestige + (effect.housePrestige ?? 0)) }
+    const balance = next.finance.familyTreasury + (effect.familyTreasury ?? 0)
+    next.finance = { ...next.finance,
+      familyTreasury: Math.max(0, Math.min(999, balance)),
+      familyDebt: Math.max(0, Math.min(999, next.finance.familyDebt + (effect.familyDebt ?? 0) + Math.max(0, -balance))) }
+  }
   if (effect.faction) next.factions = { ...next.factions, [effect.faction.id]: clamp((next.factions[effect.faction.id] ?? 10) + effect.faction.amount) }
   if (effect.flag && !next.seenEvents.includes(effect.flag)) next.seenEvents = [...next.seenEvents, effect.flag]
   if (effect.status) next.socialStatus = effect.status
-  return next
+  return effect.revokeStanding ? revokeNobleStatus(next, effect.revokeStanding) : next
 }
 
 const girls = ['Yi Seol', 'Kim Nari', 'Park Eun', 'Han Sora']
@@ -117,6 +144,8 @@ export function advanceCalendarDays(game: GameState, days: number): GameState {
         note: member.age + 1 >= 85 ? 'Deceased; remembered in the household chronicle.' : member.note
       })) : next.family
     }
+    if (day === 1) next = settleFamilyFinances(settleHousehold(next))
+    next = updateCivicStanding(matureCulturalProjects(inviteForSeason(next)))
     if (next.pendingBirthDueDay !== null && next.dayCount >= next.pendingBirthDueDay) {
       const childNumber = next.children + 1
       const gender = childNumber % 2 === 1 ? 'Female' : 'Male'
@@ -131,14 +160,14 @@ export function advanceCalendarDays(game: GameState, days: number): GameState {
           relation: childNumber === 1 ? 'First child' : 'Child',
           age: 0,
           gender,
-          note: 'Born into the household; a possible future heir.'
+          note: 'Born into the household; a possible future heir.', training: { focus: 'classics', progress: 0 }
         }],
         seenEvents: next.seenEvents.includes('child-arrived') ? next.seenEvents : [...next.seenEvents, 'child-arrived']
       }
       next = { ...next, journal: appendLog(next, 'A child is born into the household.') }
     }
-    if (next.mode === 'historical' && year >= 1910) {
-      next = { ...next, ending: { title: 'The Last Year of Joseon', text: 'The old dynasty has come to an end. Your family’s chronicle belongs to the final chapters of an era.', canContinue: false } }
+    if (next.mode === 'historical' && year >= 1898) {
+      next = { ...next, ending: { title: 'The End of Joseon', text: 'The Great Korean Empire was proclaimed in 1897. Your household chronicle now closes at this historical boundary.', canContinue: false } }
     } else if (next.stats.health <= 0 || next.player.age >= 85) {
       const adultHeirs = next.family.filter((member) => (member.relation === 'First child' || member.relation === 'Child') && member.age >= 18 && !member.note.startsWith('Deceased'))
       next = { ...next, ending: {

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="720" viewBox="0 0 1600 720" role="img" aria-label="Illustrated Joseon cultural gathering by a lantern-lit pavilion">
+<defs>
+ <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#172637"/><stop offset=".55" stop-color="#405261"/><stop offset="1" stop-color="#b37c6a"/></linearGradient>
+ <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#526f74"/><stop offset="1" stop-color="#172f3b"/></linearGradient>
+ <linearGradient id="lantern" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff3c8"/><stop offset="1" stop-color="#dc9972"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#ffe5a6" stop-opacity=".5"/><stop offset="1" stop-color="#f1b87d" stop-opacity="0"/></radialGradient>
+ <pattern id="woodgrain" width="70" height="60" patternUnits="userSpaceOnUse"><path d="M0 0H70M0 31H70" stroke="#a68a63" stroke-width="1" opacity=".22"/></pattern>
+</defs>
+<rect width="1600" height="720" fill="url(#sky)"/>
+<circle cx="1237" cy="149" r="66" fill="#ffebc9" opacity=".85"/><circle cx="1237" cy="149" r="108" fill="url(#glow)"/>
+<path d="M0 410Q160 318 295 361T620 349T930 362T1260 330T1600 361V720H0Z" fill="#33474a" opacity=".45"/>
+<path d="M0 485Q150 417 300 450T650 425T950 444T1300 422T1600 451V720H0Z" fill="#21393e" opacity=".76"/>
+<!-- Roofline of the distant palace -->
+<g fill="#182b33"><path d="M960 403l125-62 130 63 125 4 99-51 98 51 63 14v37H930z"/><path d="M1010 385h40v126h-40zm220 7h42v120h-42zm210 2h43v122h-43z"/><path d="M949 444h651v70H949z"/></g>
+<path d="M0 522Q370 494 790 525T1600 514V720H0Z" fill="url(#water)"/>
+<g fill="none" stroke="#dfba96" stroke-width="2" opacity=".28"><path d="M0 561q150-23 290 0t290 0t300 0t300 0t420 0"/><path d="M40 612q180-20 360 0t370 0t380 0t410 0"/><path d="M0 672q230-17 430 0t410 0t380 0t380 0"/></g>
+<!-- Garden trees -->
+<g fill="#152f30" stroke="#213c35" stroke-width="7"><path d="M1428 517Q1466 337 1434 190" fill="none" stroke-width="26"/><path d="M1445 300q-86-102-156-99M1444 350q85-113 137-114" fill="none" stroke-width="16"/>
+<ellipse cx="1434" cy="188" rx="140" ry="82"/><ellipse cx="1335" cy="214" rx="99" ry="72"/><ellipse cx="1541" cy="244" rx="112" ry="86"/>
+</g>
+<g fill="#ca9c9e" opacity=".74"><circle cx="1290" cy="208" r="5"/><circle cx="1352" cy="151" r="6"/><circle cx="1380" cy="220" r="7"/><circle cx="1510" cy="147" r="5"/><circle cx="1549" cy="244" r="6"/><circle cx="1464" cy="173" r="5"/><circle cx="1356" cy="278" r="5"/><circle cx="1502" cy="295" r="4"/></g>
+<!-- Pavilion on the right -->
+<g transform="translate(480 158)">
+<path d="M5 256L364 88 721 248 777 256 709 270 376 139 65 277Z" fill="#28242a" stroke="#bd8f69" stroke-width="7"/>
+<path d="M40 280L369 148 699 280 720 290 368 191 16 289Z" fill="#80584a" stroke="#d3ab79" stroke-width="6"/>
+<path d="M102 294h536v200H102Z" fill="#c9b28d"/><rect x="121" y="293" width="500" height="201" fill="url(#woodgrain)"/>
+<path d="M100 292h25v227h-25zm130 0h23v227h-23zm145 0h23v227h-23zm140 0h23v227h-23zm112 0h24v227h-24z" fill="#653d37"/>
+<path d="M124 324H624M124 434H624" stroke="#754c40" stroke-width="12"/>
+<path d="M125 330h500v103H125Z" fill="#e4cfad" opacity=".72"/>
+<path d="M145 353h452M145 401h452" stroke="#9c775d" stroke-width="2"/>
+<g stroke="#6e4b3e" stroke-width="3"><path d="M183 330v103m89-103v103m89-103v103m89-103v103m89-103v103"/></g>
+<path d="M75 503h600v34H75Z" fill="#583f39"/><path d="M70 533h615v18H70Z" fill="#a17960"/>
+<!-- lanterns -->
+<g><path d="M205 261v61M556 258v64" stroke="#b99771" stroke-width="4"/><ellipse cx="205" cy="331" rx="53" ry="66" fill="url(#glow)"/><ellipse cx="556" cy="331" rx="53" ry="66" fill="url(#glow)"/><path d="M180 318q25-14 50 0v39q-25 14-50 0Z" fill="url(#lantern)" stroke="#c08a63" stroke-width="4"/><path d="M532 318q24-14 48 0v39q-24 14-48 0Z" fill="url(#lantern)" stroke="#c08a63" stroke-width="4"/><path d="M204 313v51m352-51v51" stroke="#b37b56" stroke-width="3"/></g>
+<!-- salon table with a scroll and ceramic vessel -->
+<path d="M248 480h270v28H248Z" fill="#594038"/><path d="M274 507h16v48h-16zm200 0h16v48h-16z" fill="#674538"/>
+<rect x="301" y="465" width="136" height="15" rx="3" fill="#f1e3c8" stroke="#bba17e" stroke-width="3"/>
+<path d="M310 470h107M311 476h98" stroke="#8c7c69" stroke-width="2" opacity=".5"/><path d="M459 461q-12-28 10-34t21 34" fill="#869992" stroke="#b0bba8" stroke-width="3"/>
+</g>
+<!-- pond and bridge -->
+<path d="M600 632q275-120 590-27l-6 17q-340-73-576 41Z" fill="#c2aa8b" opacity=".8"/><path d="M616 626q260-95 556-31" stroke="#e7cda7" stroke-width="7" fill="none"/>
+<!-- lilies -->
+<g fill="#6a9a85" stroke="#3d6e6b" stroke-width="2" opacity=".86"><ellipse cx="1127" cy="659" rx="56" ry="18"/><ellipse cx="1242" cy="626" rx="65" ry="18"/><ellipse cx="1374" cy="675" rx="70" ry="18"/></g>
+<g fill="#ebbfbb" stroke="#c78f9d" stroke-width="2"><path d="M1112 647q-30-41 0-48q28 12 1 48"/><path d="M1112 647q2-46 22-32t-20 32"/><path d="M1244 618q-25-43 0-42q26 14 0 42"/><path d="M1356 658q-30-38 0-42q28 13 2 42"/></g>
+<g fill="#d3ae8a" opacity=".5"><circle cx="877" cy="639" r="3"/><circle cx="974" cy="590" r="3"/><circle cx="1190" cy="685" r="3"/></g>
+</svg>

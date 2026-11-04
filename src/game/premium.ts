@@ -28,6 +28,15 @@ export const milestones: Milestone[] = [
   { id:'heir',name:'A New Branch',nameKo:'새로운 가지',description:'Welcome a child into the household.',earned:g=>g.children>0,seal:'子'},
   { id:'age',name:'Through the Seasons',nameKo:'흐르는 세월',description:'Live through three years of change.',earned:g=>g.dayCount>=1080,seal:'歲'},
   { id:'legacy',name:'An Enduring Name',nameKo:'잊히지 않는 이름',description:'Begin the second generation.',earned:g=>g.generation>=2,seal:'續'},
+  { id:'letters',name:'Ink Upon the Page',nameKo:'붓끝에 담긴 마음',description:'Earn 55 scholarship and 45 artistry.',earned:g=>!!g.culture&&g.culture.scholarship>=55&&g.culture.artistry>=45,seal:'文'},
+  { id:'protocol',name:'Grace Before the Court',nameKo:'궁중의 예절',description:'Develop 70 courtly etiquette.',earned:g=>!!g.culture&&g.culture.etiquette>=70,seal:'禮'},
+  { id:'patron',name:'Patron of the Arts',nameKo:'예술의 후원자',description:'Complete a cultural patronage project.',earned:g=>!!g.culture&&g.culture.projects.some(p=>p.completed),seal:'藝'},
+  { id:'heritage',name:'A House Remembered',nameKo:'기억되는 가문',description:'Preserve three family traditions or cultural works.',earned:g=>!!g.culture&&(g.culture.records.length+g.culture.traditions.length)>=4,seal:'傳'},
+  { id:'command',name:'The General’s Seal',nameKo:'장군의 인장',description:'Rise to the second tier of military command.',earned:g=>g.career?.path==='military'&&g.career.rank>=2,seal:'將'},
+  { id:'examination',name:'A Life in Service',nameKo:'등용된 이름',description:'Earn formal qualifications and an appointment.',earned:g=>!!g.career?.examined&&g.career.rank>=1,seal:'試'},
+  { id:'estate',name:'The House Endures',nameKo:'지켜 낸 가문',description:'Expand your household estate to level two.',earned:g=>!!g.household&&g.household.level>=2,seal:'田'},
+  { id:'fallen',name:'The Fallen House',nameKo:'몰락한 가문',description:'Survive the loss of noble or royal privilege.',earned:g=>!!g.downfall,seal:'落'},
+  { id:'restored',name:'Pardon at Last',nameKo:'마침내 내린 사면',description:'Restore your family’s legal status through a royal appeal.',earned:g=>!!g.downfall?.restored,seal:'復'},
   { id:'crown',name:'The Crown Within Reach',nameKo:'눈앞의 왕관',description:'Reach 80 influence and 70 royal favour.',earned:g=>g.stats.influence>=80&&g.stats.royalFavor>=70,seal:'冠'}
 ]
 export function achieved(g: GameState): Milestone[] { return milestones.filter(m => m.earned(g)) }

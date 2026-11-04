@@ -1,42 +1,27 @@
-# Release Notes — Premium Edition 3.0
+# JOSEON Premium V6.0 — Release notes
 
-## Architecture migration
+**V6 is a major gameplay integration of GSDD v2.0 Parts I–III, built on the Premium V5 React/TypeScript/Vite application.**
 
-- Replaces the old self-contained runtime with a **proper React 18 + TypeScript + Vite** application.
-- Zustand manages one consistent campaign state; Zod validates versioned save data; LocalStorage stores progress.
-- Split game systems and content into maintainable files, with static SVG assets in `public/art/`.
-- Removes the `vite-plugin-singlefile` build approach. Vercel generates an ordinary `dist/` with separated CSS, JavaScript and images.
-- Adds GitHub Actions checks, `vercel.json`, modern metadata and a project guide.
+## New gameplay
 
-## Premium presentation
+- **House Council & Identity:** a separate view of birth, legal status, honor, legitimacy, prestige, popularity, formal authority, house standing and family cohesion. Household leadership must be earned.
+- **Character education:** classics, administration, martial studies and arts develop independently and affect later roles.
+- **Office responsibility:** office-holders can fulfill assigned duties only if they meet appointment and discipline requirements. Political influence alone does not create sovereign power.
+- **Finance separation:** personal cash, private savings, communal family treasury and family debt are distinct. Transfers require eligibility; a family head can withdraw shared funds but others cannot.
+- **Land & ventures:** the ancestral residence and rice fields have condition/productivity. Players can purchase property, renovate, create/close textile partnerships and track monthly fluctuations.
+- **Recurring accounts:** once per month, holdings and businesses earn money and generate maintenance costs. Uncovered losses become family debt and are visible in the financial ledger.
+- **House strategy:** convene elders, mediate a rivalry, seek new alliances or claim leadership after meeting requirements.
+- **Parenting:** teach children aged 5–17 and pass their focused preparation into the next playable generation.
+- **Narrative:** three new political/family/economic encounters, each with distinct choices and persistent flags: *The Branch That Was Forgotten*, *The Price of Silk*, and *A Seal Without a Throne*.
 
-- Moonlit palace title illustration, dark ink-blue and aged-paper art direction, gold seals and parchment dialogue.
-- Twelve newly generated vector character portraits with six selectable costumes per player gender, plus ten character-specific NPC illustrations.
-- Illustrated clickable navigation map of Hanseong (stylized, not geographically exact).
-- Responsive tablet/mobile screens, improved tap targets and keyboard focus, reduced-motion support.
-- Original optional Web Audio ambience (no downloaded audio or copyrighted music).
-- New faction and legacy screens, extended character and story presentation.
+## Preserved from V5
 
-## More consequence-driven gameplay
+Historical/alternative campaigns, Joseon calendar, illustrated scenes and characters, major NPCs, factions, romance, marriage, childbirth, adult succession, careers, political downfall and restoration, cultural society, multi-slot save/load and English/Korean interface modes.
 
-- Three factions: Reform Circle, Old Guard, Royal Household. Pledges affect allies and rivals; mediation and inquiries trade different resources. Council actions have a seven-day cooldown.
-- Twelve independently calculated legacy milestones, four chronological chapter markers.
-- Seven curated historical starts, a custom year from 1392–1909, and the alternative historical mode.
-- New 1724 Yeongjo prologue and the three-path lotus-letter story with separate consequences.
-- New stories: missing treasury ledger, tribunal hearing, winter relief, family pressure, medical warning, visiting envoy, three seals council, and a family charter.
-- Family backgrounds grant different starting advantages. Marriage requirements, childbirth timing and adult-heir succession are retained.
+## QA
 
-## Saving and backward compatibility
+72 automated tests passed, original Premium V5 regressions included. Game module compilation and App/Store syntax checks passed. All 35 SVG files and CSS stylesheets validated. A real React/Vite production build and graphical browser tests remain unverified due unavailable npm registry access in the preparation environment.
 
-- V3 save validation adds faction standings and the last council day.
-- Imports earlier V1/V2 React saves and recognizes compatible V2.1 standalone backup shapes.
-- The title Load screen can import a backup even before starting a campaign.
-- Same-origin legacy autosave detection is implemented. The old independent-faction standing does not directly correspond to the new Royal Household faction and is initialized to a neutral baseline.
+## Known gaps
 
-## Known limitations
-
-- npm package installation is blocked by this preparation environment; **production Vite build and browser UI end-to-end testing remain unverified** here.
-- Game calendar and reign transitions are simplified; some monarch transitions within years are approximate.
-- Korean translation covers primary UI, events and decisions; certain ancillary descriptions and journal history remain English.
-- Illustrated NPCs do not yet have age-evolving portrait art; careers, families and intrigue are deep enough for a playable life story but are not a large-scale emergent historical simulator.
-- Save data is stored per browser origin and is not cloud-synced.
+The user-provided PDFs describe substantially more than one release can credibly deliver. Fully immersive 3D cameras, simulated royal sovereign rule, a comprehensive historical bureaucracy, autonomous noble houses, regional trade routing and a complete Korean lunisolar calendar are **not implemented**. New diary messages and financial records are not fully translated into Korean. Future improvements should prioritize these while preserving historical context and local-first performance.

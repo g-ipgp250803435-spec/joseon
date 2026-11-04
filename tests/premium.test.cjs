@@ -5,14 +5,14 @@ const { premiumEvents, extendedEvents, historicalScenarios, storyEvents, npcs } 
 const { eligibleForEvent, applyEffect } = require('../.test-build/rules.js')
 const { convertStandaloneSave } = require('../.test-build/migration.js')
 function game() { return {
- schemaVersion:3,mode:'historical',scenarioId:'1724',campaignLabel:'1724',monarch:'King Yeongjo',
+ schemaVersion:5,mode:'historical',scenarioId:'1724',campaignLabel:'1724',monarch:'King Yeongjo',
  player:{name:'Yi Seol',gender:'Female',age:21,family:'House Yi',background:'Established aristocratic family',personality:'Composed',portrait:'花',attributes:{intelligence:50,charisma:50,influence:50,diplomacy:50,courage:50}},
  date:{year:1724,month:10,day:14},dayCount:0,stats:{reputation:45,influence:25,wealth:50,health:90,royalFavor:35},socialStatus:'Noble household',appointment:'No official appointment',
  relationships:npcs.map(n=>({npcId:n.id,affection:8,trust:10,respect:12,romance:0,status:'Acquaintance'})),family:[{id:'s',name:'Yi Jun',relation:'Sibling',age:18,gender:'Male',note:''}],currentLocation:'residence',seenEvents:[],activeEvent:null,journal:[],spouse:null,children:0,ending:null,language:'en',generation:1,pendingBirthDueDay:null,lastEventDay:-5,lastInteraction:{},factions:{reform:20,tradition:20,royalist:20},lastFactionDay:-10
 }}
 test('three factions have unique identities; milestone catalog is meaningful',()=>{
- assert.deepEqual(factions.map(f=>f.id),['reform','tradition','royalist']);assert.equal(milestones.length,12)
- assert.equal(new Set(milestones.map(m=>m.id)).size,12)
+ assert.deepEqual(factions.map(f=>f.id),['reform','tradition','royalist']);assert.equal(milestones.length,21)
+ assert.equal(new Set(milestones.map(m=>m.id)).size,21)
  assert.equal(achieved(game()).length,1)
  assert.equal(chapter(0),1);assert.equal(chapter(1080),4);assert.equal(chapterTitles.length,4)
 })
@@ -48,7 +48,7 @@ test('standalone v2.1 campaign migration preserves character, relationships and 
  const old={schemaVersion:3,mode:'historical',scenarioId:'1776',scenario:'A New Reign',monarch:'King Jeongjo',lang:'en',year:1777,month:2,day:6,dayCount:366,generation:1,
  player:game().player,stats:{reputation:48,influence:41,wealth:44,health:91,favour:66},status:'Noble household',appointment:'Junior Court Official',rels:npcs.map(n=>({id:n.id,affection:26,trust:28,respect:17,romance:7})),familyMembers:[{name:'Yi Jun',relation:'Sibling',age:19,gender:'Male',note:'Dear brother'}],spouse:null,children:0,location:'garden',seen:['letter-shared'],journal:['A day in the garden'],ending:null,pendingBirthDueDay:null,lastEventDay:20,lastFactionAction:1,lastInteraction:{},factions:{reform:55,tradition:13,independent:30}}
  const converted=convertStandaloneSave(old)
- assert.equal(converted.schemaVersion,3);assert.equal(converted.stats.royalFavor,66)
+ assert.equal(converted.schemaVersion,6);assert.equal(converted.stats.royalFavor,66)
  assert.equal(converted.factions.reform,55);assert.equal(converted.factions.royalist,20)
  assert.equal(converted.relationships.length,npcs.length);assert.equal(converted.family[0].name,'Yi Jun')
  assert.equal(converted.currentLocation,'garden');assert.deepEqual(converted.seenEvents,['letter-shared'])
