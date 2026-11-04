@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" role="img" aria-label="Illustrated fictionalized map of Hanseong districts">
+<defs>
+  <linearGradient id="paper" x2="1" y2="1"><stop stop-color="#efe4d1"/><stop offset=".52" stop-color="#dbcbb0"/><stop offset="1" stop-color="#f4ebda"/></linearGradient>
+  <linearGradient id="river" x2="0" y2="1"><stop stop-color="#8aa5a3" stop-opacity=".8"/><stop offset="1" stop-color="#b9c5b5" stop-opacity=".75"/></linearGradient>
+  <pattern id="grain" width="23" height="26" patternUnits="userSpaceOnUse"><path d="M1 3H4 M17 22H22" fill="none" stroke="#765a45" stroke-opacity=".07" stroke-width="1.2"/></pattern>
+  <g id="house"><path d="M0 30L31 13L61 29L56 35H6Z" fill="#4e4d4b" stroke="#796958" stroke-width="2"/><rect x="10" y="34" width="43" height="30" fill="#b19e85" stroke="#7b6d5d" stroke-width="2"/><rect x="20" y="42" width="12" height="22" fill="#695644"/><rect x="38" y="42" width="9" height="12" fill="#8e7960"/></g>
+  <g id="pine"><path d="M0 35V84" stroke="#5a604b" stroke-width="5"/><path d="M-24 36L0 5L26 36 M-29 50L0 17L29 50 M-27 64L0 29L29 64" stroke="#687663" fill="#87927d" stroke-width="2"/></g>
+</defs>
+<rect width="1200" height="660" fill="url(#paper)"/><rect width="1200" height="660" fill="url(#grain)"/>
+<path d="M0 125Q76 24 143 89T277 62Q357-24 455 108T626 51Q717-12 814 96T1001 71Q1123-9 1200 108V0H0Z" fill="#78867d" opacity=".48"/>
+<path d="M0 151Q93 89 155 123T286 94Q377 40 462 129T647 78Q768 34 825 129T1034 95Q1137 59 1200 129" fill="none" stroke="#6b7b71" opacity=".58" stroke-width="13"/>
+<path d="M-80 576C150 483 370 648 575 560C788 477 971 642 1280 545V702H-80Z" fill="url(#river)" stroke="#6e9a96" stroke-width="7" opacity=".8"/>
+<path d="M0 595Q145 527 270 587T550 586Q720 533 862 594T1200 571" stroke="#f5f2df" fill="none" opacity=".55" stroke-width="8"/>
+<path d="M229 255C290 166 436 157 558 164C693 132 863 201 930 316C996 436 828 522 691 528L410 520C276 510 190 414 229 255Z" fill="#ddcfb7" stroke="#8f7860" stroke-width="11"/>
+<path d="M231 259C283 176 439 171 559 173C696 141 854 213 920 318C981 434 826 511 684 515L417 508C283 499 206 409 231 259Z" fill="none" stroke="#f8f0dd" stroke-width="5"/>
+<path d="M240 375Q601 313 935 376M401 191Q432 325 432 503M742 191Q693 315 733 509M285 263Q604 414 850 460" stroke="#a7987c" stroke-width="15" fill="none" opacity=".48"/>
+<path d="M238 376Q600 315 931 377M400 190Q432 324 432 504M739 193Q695 314 733 511M287 265Q605 416 849 463" stroke="#f4e9d6" stroke-width="10" fill="none" opacity=".7"/>
+<!-- roof cluster, pavilion, courtyard, pond -->
+<g transform="translate(523 199) scale(1.4)"><use href="#house"/><path d="M-27 32L31-3L89 31" fill="none" stroke="#6b5d4c" stroke-width="3"/><rect x="-30" y="60" width="122" height="13" fill="#baa98e"/></g>
+<g transform="translate(363 298) scale(.9)"><use href="#house"/></g><g transform="translate(450 371) scale(.8)"><use href="#house"/></g><g transform="translate(618 330) scale(.7)"><use href="#house"/></g>
+<g transform="translate(777 345) scale(.75)"><use href="#house"/></g><g transform="translate(770 438) scale(.7)"><use href="#house"/></g><g transform="translate(327 440) scale(.55)"><use href="#house"/></g><g transform="translate(497 464) scale(.6)"><use href="#house"/></g>
+<ellipse cx="378" cy="215" rx="62" ry="31" fill="#9bb4a7" opacity=".75" stroke="#7a958d" stroke-width="4"/>
+<path d="M349 220Q368 204 393 222M382 211Q390 204 404 211" stroke="#e8e8d3" fill="none" stroke-width="4"/>
+<g transform="translate(145 202) scale(.64)"><use href="#pine"/></g><g transform="translate(1040 198) scale(.72)"><use href="#pine"/></g><g transform="translate(1072 240) scale(.53)"><use href="#pine"/></g><g transform="translate(170 437) scale(.6)"><use href="#pine"/></g><g transform="translate(1010 460) scale(.71)"><use href="#pine"/></g>
+<g font-family="Georgia,serif" fill="#664b43" opacity=".9"><text x="76" y="96" font-size="41" letter-spacing="7">漢 城</text><text x="80" y="122" font-size="13" letter-spacing="3">THE ROYAL CAPITAL</text><text x="1040" y="96" font-size="24">北</text><path d="M1050 121L1050 164M1040 134L1050 121L1060 134" fill="none" stroke="#6b5649" stroke-width="2"/><text x="76" y="612" font-size="17" letter-spacing="3">水 · THE RIVER</text></g>
+<rect x="18" y="18" width="1164" height="624" fill="none" stroke="#9b8768" stroke-opacity=".45" stroke-width="3"/>
+</svg>
